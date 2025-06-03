@@ -1,0 +1,123 @@
+package io.github.sinri.drydock.lesson.entity.table.drydock_lesson.drydocklesson;
+
+import io.github.sinri.keel.integration.mysql.result.row.AbstractTableRow;
+import io.vertx.core.json.JsonObject;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.Objects;
+
+/**
+ * Table comment is empty.
+ * (´^ω^`)
+ * SCHEMA: drydock_lesson
+ * TABLE: account
+ * (*￣∇￣*)
+ * NOTICE BY KEEL:
+ * To avoid being rewritten, do not modify this file manually, unless editable confirmed.
+ * It was auto-generated on Tue Jun 03 11:35:18 CST 2025.
+ *
+ * @see io.github.sinri.keel.integration.mysql.dev.TableRowClassSourceCodeGenerator
+ */
+public class AccountTableRow extends AbstractTableRow {
+    public static final String SCHEMA_AND_TABLE = "drydock_lesson.account";
+
+    public AccountTableRow(JsonObject tableRow) {
+        super(tableRow);
+    }
+
+    @Override
+    @Nonnull
+    public String sourceTableName() {
+        return "account";
+    }
+
+    public String sourceSchemaName() {
+        return "drydock_lesson";
+    }
+
+    /*
+     * 账户的唯一识别号码
+     *
+     * Field `account_id` of type `bigint(20) unsigned`.
+     */
+    @Nonnull
+    public Long getAccountId() {
+        return Objects.requireNonNull(readLong("account_id"));
+    }
+
+    /*
+     * 账户的登入名
+     *
+     * Field `account_name` of type `varchar(128)`.
+     */
+    @Nonnull
+    public String getAccountName() {
+        return Objects.requireNonNull(readString("account_name"));
+    }
+
+    /*
+     * 账户的显示名
+     *
+     * Field `display_name` of type `varchar(128)`.
+     */
+    @Nonnull
+    public String getDisplayName() {
+        return Objects.requireNonNull(readString("display_name"));
+    }
+
+    /*
+     * 账户的邮箱
+     *
+     * Field `email` of type `varchar(200)`.
+     */
+    @Nonnull
+    public String getEmail() {
+        return Objects.requireNonNull(readString("email"));
+    }
+
+    /*
+     * 密码的哈希值
+     *
+     * Field `password_hash` of type `varchar(200)`.
+     */
+    @Nonnull
+    public String getPasswordHash() {
+        return Objects.requireNonNull(readString("password_hash"));
+    }
+
+    /*
+     * Enum{ON,OFF}
+     *
+     * Loose Enum of Field `account_status` of type `varchar(32)`.
+     */
+    @Nonnull
+    public AccountStatusEnum getAccountStatus() {
+        @Nullable String enumExpression = readString("account_status");
+        Objects.requireNonNull(enumExpression, "The Enum Field `account_status` should not be null!");
+        return AccountStatusEnum.valueOf(enumExpression);
+    }
+
+    /**
+     * Enum for Field `account_status`
+     */
+    public enum AccountStatusEnum {
+        ON,
+        OFF,
+    }
+
+
+}
+
+/*
+CREATE TABLE `account` (
+  `account_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '账户的唯一识别号码',
+  `account_name` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '账户的登入名',
+  `display_name` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '账户的显示名',
+  `email` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '账户的邮箱',
+  `password_hash` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '密码的哈希值',
+  `account_status` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'Enum{ON,OFF}',
+  PRIMARY KEY (`account_id`),
+  UNIQUE KEY `UK_AN` (`account_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC
+ */
