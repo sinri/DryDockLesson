@@ -1,4 +1,4 @@
-package io.github.sinri.drydock.lesson.entity.table.drydock_lesson.drydocklesson;
+package io.github.sinri.drydock.lesson.entity.table.akagi.drydocklesson;
 
 import io.github.sinri.keel.integration.mysql.result.row.AbstractTableRow;
 import io.vertx.core.json.JsonObject;
@@ -14,7 +14,7 @@ import java.util.Objects;
  * (*￣∇￣*)
  * NOTICE BY KEEL:
  * To avoid being rewritten, do not modify this file manually, unless editable confirmed.
- * It was auto-generated on Tue Jun 03 11:35:17 CST 2025.
+ * It was auto-generated on Thu Jun 05 18:44:11 CST 2025.
  *
  * @see io.github.sinri.keel.integration.mysql.dev.TableRowClassSourceCodeGenerator
  */
@@ -67,6 +67,7 @@ CREATE TABLE `project_member` (
   `member_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `project_id` bigint(20) NOT NULL,
   `account_id` bigint(20) NOT NULL,
-  PRIMARY KEY (`member_id`)
+  PRIMARY KEY (`member_id`),
+  UNIQUE KEY `UK_P_A` (`project_id`,`account_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC
  */

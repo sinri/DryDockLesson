@@ -6,7 +6,7 @@ import io.vertx.sqlclient.SqlConnection;
 import javax.annotation.Nonnull;
 
 public class AkagiMySQLConnection extends NamedMySQLConnection {
-    public final static String DATASOURCE_NAME = "drydock_lesson";
+    public final static String DATASOURCE_NAME = "akagi";
 
     public AkagiMySQLConnection(SqlConnection sqlConnection) {
         super(sqlConnection);
