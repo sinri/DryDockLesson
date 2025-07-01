@@ -11,7 +11,7 @@ import io.github.sinri.keel.integration.mysql.KeelMySQLDataSourceProvider;
 import io.github.sinri.keel.integration.mysql.NamedMySQLDataSource;
 import io.vertx.core.Future;
 import io.vertx.core.VertxOptions;
-import io.vertx.core.cli.CommandLine;
+import picocli.CommandLine;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -40,25 +40,25 @@ public class Akagi extends AircraftCarrier {
     }
 
     @Override
-    protected VertxOptions buildVertxOptions(@Nonnull CommandLine commandLine) {
+    protected VertxOptions buildVertxOptions(@Nonnull CommandLine.ParseResult parseResult) {
         return new VertxOptions();
     }
 
     @Override
-    protected Future<Void> loadRemoteConfiguration(@Nonnull CommandLine commandLine) {
+    protected Future<Void> loadRemoteConfiguration(@Nonnull CommandLine.ParseResult parseResult) {
         return Future.succeededFuture();
     }
 
     @Nonnull
     @Override
-    protected Future<Void> prepare(@Nonnull CommandLine commandLine) {
+    protected Future<Void> prepare(@Nonnull CommandLine.ParseResult parseResult) {
         mySQLDataSource = KeelMySQLDataSourceProvider.initializeNamedMySQLDataSource(AkagiMySQLConnection.DATASOURCE_NAME, AkagiMySQLConnection::new);
         return Future.succeededFuture();
     }
 
     @Nonnull
     @Override
-    protected Future<Void> ready(@Nonnull CommandLine commandLine) {
+    protected Future<Void> ready(@Nonnull CommandLine.ParseResult parseResult) {
         getUnitLogger().notice(getClass().getName() + " READY");
         return Future.succeededFuture();
     }

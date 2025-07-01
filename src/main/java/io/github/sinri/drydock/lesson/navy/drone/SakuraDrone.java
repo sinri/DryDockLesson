@@ -25,33 +25,33 @@ public class SakuraDrone extends Drone {
 
     @Override
     protected Future<KeelQueueTask> seekNextTask() {
-        return Main.getMySQLDataSource().withTransaction(akagiMySQLConnection -> {
-            AkagiAction akagiAction = new AkagiAction(akagiMySQLConnection);
+        return Main.getMySQLDataSource().withConnection(akagiMySQLConnection -> {
+                       return new AkagiAction(akagiMySQLConnection).fetchNextPendingQueueTask();
+                   })
+                   .compose(row -> {
+                       if (row == null) {
+                           return Future.succeededFuture(null);
+                       }
 
-            return akagiAction.fetchNextPendingQueueTask()
-                              .compose(row -> {
-                                  if (row == null) {
-                                      return Future.succeededFuture(null);
-                                  }
-                                  return Future.succeededFuture(row);
-                              })
-                              .compose(row -> {
-                                  String className = "io.github.sinri.drydock.lesson.queue." + row.getWorker();
-                                  try {
-                                      AbstractWorker worker = (AbstractWorker) Class.forName(className)
-                                                                                    .getConstructor(QueueTableRow.class)
-                                                                                    .newInstance(row);
-                                      return Future.succeededFuture(worker);
-                                  } catch (Throwable e) {
-                                      return akagiAction.declareQueueTaskStart(row.getTaskId())
-                                                        .compose(v -> {
-                                                            return akagiAction.declareQueueTaskEnd(row.getTaskId(), QueueTableRow.TaskStatusEnum.FAILED, e.toString());
-                                                        })
-                                                        .compose(v -> {
-                                                            return Future.succeededFuture(null);
-                                                        });
-                                  }
-                              });
-        });
+                       String className = "io.github.sinri.drydock.lesson.queue." + row.getWorker();
+                       try {
+                           AbstractWorker worker = (AbstractWorker) Class.forName(className)
+                                                                         .getConstructor(QueueTableRow.class)
+                                                                         .newInstance(row);
+                           return Future.succeededFuture(worker);
+                       } catch (Throwable e) {
+                           return Main.getMySQLDataSource().withConnection(akagiMySQLConnection -> {
+                               var akagiAction = new AkagiAction(akagiMySQLConnection);
+                               return akagiAction.declareQueueTaskStart(row.getTaskId())
+                                                 .compose(v -> {
+                                                     return akagiAction.declareQueueTaskEnd(row.getTaskId(), QueueTableRow.TaskStatusEnum.FAILED, e.toString());
+                                                 })
+                                                 .compose(v -> {
+                                                     return Future.succeededFuture(null);
+                                                 });
+                           });
+                       }
+                   });
+
     }
 }

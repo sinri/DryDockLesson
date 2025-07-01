@@ -29,7 +29,7 @@ public interface QueueActionMixin extends AkagiActionBase {
         return AnyStatement.select(s -> s
                                    .from(QueueTableRow.SCHEMA_AND_TABLE)
                                    .where(conditionsComponent -> conditionsComponent
-                                           .expressionEqualsLiteralValue("status", QueueTableRow.TaskStatusEnum.PENDING.name())
+                                           .expressionEqualsLiteralValue("task_status", QueueTableRow.TaskStatusEnum.PENDING.name())
                                    )
                                    .orderByAsc("apply_time")
                                    .limit(1)

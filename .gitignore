@@ -41,3 +41,4 @@ build/
 
 src/main/resources/config.properties
 src/test/resources/config.properties
+/src/test/java/io/github/sinri/drydock/lesson/test/debug/
