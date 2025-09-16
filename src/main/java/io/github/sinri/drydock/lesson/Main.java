@@ -1,7 +1,10 @@
 package io.github.sinri.drydock.lesson;
 
+import io.github.sinri.drydock.lesson.zhejiang.ZhejiangAircraftCarrier;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello DryDock!");
+        ZhejiangAircraftCarrier zhejiangAircraftCarrier = new ZhejiangAircraftCarrier();
+        zhejiangAircraftCarrier.launch(args);
     }
 }
