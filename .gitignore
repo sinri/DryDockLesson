@@ -38,5 +38,5 @@ build/
 .DS_Store
 
 src/test/java/io/github/sinri/emailboxorganizator/test/debug
-src/test/resources/config.properties
+config.properties
 src/test/resources/runtime/
